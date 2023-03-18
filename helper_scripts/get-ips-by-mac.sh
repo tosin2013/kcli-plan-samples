@@ -9,6 +9,7 @@ fi
 FILE_PATH=${!#}
 
 # Validate that the file path is a regular file
+ls -l $FILE_PATH
 if [[ ! -f $FILE_PATH ]]; then
   echo "Error: '$FILE_PATH' is not a regular file"
   exit 1
