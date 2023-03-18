@@ -22,4 +22,5 @@ sleep 30s
 ANSIBLE_AAP=ansible-aap
 ANSIBLE_HUB=ansible-hub
 POSTGRES=postgres
-helper_scripts/get-ips-by-mac.sh ${ANSIBLE_AAP} ${ANSIBLE_HUB} ${POSTGRES} setup-aap.sh
+../helper_scripts/get-ips-by-mac.sh ${ANSIBLE_AAP} ${ANSIBLE_HUB} ${POSTGRES} setup-aap.sh
+sudo kcli scp setup-aap.sh ansible-aap:/tmp

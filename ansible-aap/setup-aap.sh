@@ -22,10 +22,12 @@ fi
 ANSIBLE_AAP=ansible-aap
 ANSIBLE_HUB=ansible-hub
 POSTGRES=postgres
-ssh-keygen -f ~/.ssh/id_rsa -t rsa -N ''
-ssh-copy-id root@${ANSIBLE_AAP}
-ssh-copy-id root@${ANSIBLE_HUB}
-ssh-copy-id root@${POSTGRES}
+if [ ! -f ~/.ssh/id_rsa ]; then
+    ssh-keygen -f ~/.ssh/id_rsa -t rsa -N ''
+    ssh-copy-id root@${ANSIBLE_AAP}
+    ssh-copy-id root@${ANSIBLE_HUB}
+    ssh-copy-id root@${POSTGRES}
+fi
 
 cd $HOME/ocp4-ai-svc-universal-aap-configs
 
@@ -65,7 +67,7 @@ EOF
 
 
 ansible -i  inventory_dev.yml all  -m setup 
-ansible-playbook -i inventory_dev.yml playbooks/install_aap.yml --ask-vault-pass  -vv
+ansible-playbook -i inventory_dev.yml playbooks/install_aap.yml --ask-vault-pass  -vv 
 
 
 yaml_file="vaults/dev.yml"
@@ -88,3 +90,4 @@ yq -i  ''$yaml_path'="'$access_token'"' "$yaml_file"
 
 
 ansible-playbook -i inventory_dev.yml -l dev playbooks/hub_config.yml --ask-vault-pass  -vv
+ansible-playbook -i inventory_dev.yml -l dev playbooks/controller_config.yml --ask-vault-pass -vv
