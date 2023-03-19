@@ -25,7 +25,7 @@
     - echo {{ user_password }} | passwd --stdin {{ user }}
     - sudo subscription-manager refresh
     - sudo subscription-manager attach --auto
-    - dnf install git vim unzip wget tar python3 python3-pip util-linux-user -y 
+    - dnf install git vim unzip wget tar python3 python3-pip util-linux-user tmux -y 
 {% if offline_token %}
     - export OFFLINE_TOKEN={{ offline_token }}
     - echo $OFFLINE_TOKEN > /root/offline_token

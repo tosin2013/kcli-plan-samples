@@ -17,7 +17,7 @@ fi
 
 VM_NAMES=${@:1:$#-1}
 
-SUBNET=$(ip route | awk '/default/ {print $3}' | awk '{split($0,a,"."); printf("%s.%s.%s.0/24",a[1],a[2],a[3])}')
+SUBNET=$(ip route | awk '/default/ {print $3}' |  head -1 | awk '{split($0,a,"."); printf("%s.%s.%s.0/24",a[1],a[2],a[3])}')
 
 # Iterate over the list of VM names and get the IP address for each one
 for VM_NAME in $VM_NAMES; do

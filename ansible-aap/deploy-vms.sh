@@ -24,3 +24,9 @@ ANSIBLE_HUB=ansible-hub
 POSTGRES=postgres
 ../helper_scripts/get-ips-by-mac.sh ${ANSIBLE_AAP} ${ANSIBLE_HUB} ${POSTGRES} setup-aap.sh
 sudo kcli scp setup-aap.sh ansible-aap:/tmp
+
+
+#sudo kcli ssh setup-aap
+#sudo su - 
+#chmod +x /tmp/setup-aap.sh
+#/tmp/setup-aap.sh
