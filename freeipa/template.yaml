@@ -13,4 +13,5 @@ cmds:
   - echo "{{ user }} ALL=(root) NOPASSWD:ALL" | tee -a /etc/sudoers.d/{{ user }}
   - echo {{ user_password }} | passwd --stdin {{ user }}
   - sudo dnf update -y
-  - dnf install git vim unzip wget tar python3 python3-pip util-linux-user tmux -y 
+  - dnf install git vim unzip wget tar python3 python3-pip util-linux-user tmux ansible-core -y
+  - ansible-galaxy collection install freeipa.ansible_freeipa
