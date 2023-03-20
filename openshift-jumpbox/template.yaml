@@ -18,4 +18,15 @@ cmds:
   - cd /opt/scripts && curl -OL https://raw.githubusercontent.com/tosin2013/openshift-4-deployment-notes/master/aws/configure-aws-cli.sh && chmod +x configure-aws-cli.sh 
   - cd /tmp/ && curl -OL https://raw.githubusercontent.com/tosin2013/openshift-4-deployment-notes/master/pre-steps/configure-openshift-packages.sh
   - chmod +x /tmp/configure-openshift-packages.sh && /tmp/configure-openshift-packages.sh -i
+{% if offline_token %}
+  - export OFFLINE_TOKEN={{ offline_token }}
+  - echo $OFFLINE_TOKEN > /root/offline_token
+  - echo $OFFLINE_TOKEN > {{ user }}/offline_token
+{% endif %}
+{% if pull_secret %}
+  - export PULL_SECRET={{ pull_secret }}
+  - echo $PULL_SECRET > /root/.pull-secret.json
+  - echo $PULL_SECRET > {{ user }}/.pull-secret.json
+{% endif %}
+
 

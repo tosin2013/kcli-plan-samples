@@ -22,9 +22,10 @@ def cli():
 @click.option('--user', help='User name', required=True)
 @click.option('--user-password', help='User password', required=True)
 @click.option('--offline-token', help='Offline token', default='')
+@click.option('--pull-secret', help='Pull Secret', default='')
 @click.option('--help', '-h', is_flag=True, help='Display help message')
 def update_yaml(os_name, template_path, image, rhnregister, rhnorg, rhnactivationkey, numcpus, memory, disk_size,
-                reservedns, net_name, user, user_password, offline_token, help):
+                reservedns, net_name, user, user_password, offline_token, pull_secret,help):
     if help:
         click.echo(click.get_current_context().get_help())
         return
@@ -47,6 +48,7 @@ def update_yaml(os_name, template_path, image, rhnregister, rhnorg, rhnactivatio
         user=user,
         user_password=user_password,
         offline_token=offline_token,
+        pull_secret=pull_secret,
     ), Loader=yaml.SafeLoader)
 
     if not os.path.isfile('kcli-profiles.yml'):
