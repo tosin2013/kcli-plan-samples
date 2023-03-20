@@ -18,12 +18,23 @@ else
     sudo mkdir -p ~/.kcli
     sudo mkdir -p /root/.kcli
 fi
+if [ -d $HOME/.generated/vmfiles ]; then
+  echo "generated directory already exists"
+else
+  sudo mkdir -p  $HOME/.generated/vmfiles
+  sudo mkdir -p  /root/.generated/vmfiles
+fi
 sudo python3 profile_generator/profile_generator.py update_yaml microshift-demos microshift-demos/template.yaml \
   --image ${IMAGE_NAME} --user $USER --user-password ${PASSWORD} --net-name ${NET_NAME}  --offline-token ${OFFLINE_TOKEN}  \
-  kcs--pull-secret ${PULL_SECRET} --disk-size ${DISK_SIZE}  --rhnactivationkey ${RHSM_ACTIVATION_KEY} --rhnorg ${RHSM_ORG}
+  kcs --disk-size ${DISK_SIZE}  --rhnactivationkey ${RHSM_ACTIVATION_KEY} --rhnorg ${RHSM_ORG}
+sudo echo ${PULL_SECRET} | sudo tee pull-secret.json
 cat  kcli-profiles.yml
 ansiblesafe -f "${ANSIBLE_VAULT_FILE}" -o 1
 sudo cp kcli-profiles.yml ~/.kcli/profiles.yml
 sudo cp kcli-profiles.yml /root/.kcli/profiles.yml
+sudo cp  pull-secret.json  ~/.generated/vmfiles
+sudo cp pull-secret.json $HOME/.generated/vmfiles
+sudo rm pull-secret.json
+echo "Creating VM ${VM_NAME}"
 echo "Creating VM ${VM_NAME}"
 sudo kcli create vm -p microshift-demos ${VM_NAME} --wait

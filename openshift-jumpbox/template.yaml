@@ -23,10 +23,8 @@ cmds:
   - echo $OFFLINE_TOKEN > /root/offline_token
   - echo $OFFLINE_TOKEN > /home/{{ user }}/offline_token
 {% endif %}
-{% if pull_secret %}
-  - export PULL_SECRET={{ pull_secret }}
-  - echo $PULL_SECRET > /root/pull-secret.json
-  - echo $PULL_SECRET > /home/{{ user }}/pull-secret.json
-{% endif %}
-
-
+files:
+  - path: /root/pull-secret.json
+    origin: ~/.generated/vmfiles/pull-secret.json
+  - path: /home/{{ user }}/pull-secret.json
+    origin:  ~/.generated/vmfiles/pull-secret.json
