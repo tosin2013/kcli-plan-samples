@@ -25,8 +25,8 @@ cmds:
 {% endif %}
 {% if pull_secret %}
   - export PULL_SECRET={{ pull_secret }}
-  - echo $PULL_SECRET > /root/.pull-secret.json
-  - echo $PULL_SECRET > /home/{{ user }}/.pull-secret.json
+  - echo $PULL_SECRET > /root/pull-secret.json
+  - echo $PULL_SECRET > /home/{{ user }}/pull-secret.json
 {% endif %}
 
 
