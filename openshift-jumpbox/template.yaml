@@ -21,12 +21,12 @@ cmds:
 {% if offline_token %}
   - export OFFLINE_TOKEN={{ offline_token }}
   - echo $OFFLINE_TOKEN > /root/offline_token
-  - echo $OFFLINE_TOKEN > {{ user }}/offline_token
+  - echo $OFFLINE_TOKEN > /home/{{ user }}/offline_token
 {% endif %}
 {% if pull_secret %}
   - export PULL_SECRET={{ pull_secret }}
   - echo $PULL_SECRET > /root/.pull-secret.json
-  - echo $PULL_SECRET > {{ user }}/.pull-secret.json
+  - echo $PULL_SECRET > /home/{{ user }}/.pull-secret.json
 {% endif %}
 
 
