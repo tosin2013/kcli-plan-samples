@@ -25,7 +25,7 @@ cmds:
   - subscription-manager refresh
   - subscription-manager attach --auto
   - sudo dnf update -y
-  - dnf install git vim unzip wget tar python3 python3-pip util-linux-user tmux bind-utils firewalld cockpit -y
+  - dnf install git vim unzip wget tar python3 python3-pip util-linux-user tmux bind-utils firewalld cockpit ansible-core nmap -y
   - systemctl start  firewalld && systemctl enable firewalld
   - systemctl enable --now cockpit.socket && firewall-cmd --permanent --add-service=cockpit && firewall-cmd --reload
   - cd /tmp/ && curl -OL https://raw.githubusercontent.com/tosin2013/openshift-4-deployment-notes/master/pre-steps/configure-openshift-packages.sh
@@ -36,6 +36,7 @@ cmds:
   - echo $OFFLINE_TOKEN > /root/offline_token
   - echo $OFFLINE_TOKEN > /home/{{ user }}/offline_token
 {% endif %}
+  - 
   - cd /home/{{ user }}/microshift-demos && ./scripts/configure-builder && export  MICROSHIFT_DEV_PREVIEW=true  && ./scripts/mirror-repos
 files:
   - path: /root/.pull-secret.json

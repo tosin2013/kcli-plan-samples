@@ -1,13 +1,20 @@
 #!/bin/bash
 set -xe 
-cd /opt/qubinode-installer/kcli-plan-samples/
+if [ -f helper_scripts/default.env ];
+then 
+  source helper_scripts/default.env
+else
+  echo "default.env file does not exist"
+  exit 1
+fi
+
+cd $KCLI_SAMPLES_DIR
 
 export ANSIBLE_VAULT_FILE="$HOME/quibinode_navigator/inventories/localhost/group_vars/control/vault.yml"
 ansiblesafe -f "${ANSIBLE_VAULT_FILE}" -o 2
 PASSWORD=$(yq eval '.admin_user_password' "${ANSIBLE_VAULT_FILE}")
 OFFLINE_TOKEN=$(yq eval '.offline_token' "${ANSIBLE_VAULT_FILE}")
 PULL_SECRET=$(yq eval '.openshift_pull_secret' "${ANSIBLE_VAULT_FILE}")
-NET_NAME=qubinet
 VM_NAME=openshift-jumpbox-$(echo $RANDOM | md5sum | head -c 5; echo;)
 IMAGE_NAME=Fedora-Cloud-Base-37-1.7.x86_64.qcow2
 DISK_SIZE=50
