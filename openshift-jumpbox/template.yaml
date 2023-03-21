@@ -23,8 +23,12 @@ cmds:
   - echo $OFFLINE_TOKEN > /root/offline_token
   - echo $OFFLINE_TOKEN > /home/{{ user }}/offline_token
 {% endif %}
+  - curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+  - curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
 files:
   - path: /root/pull-secret.json
     origin: ~/.generated/vmfiles/pull-secret.json
   - path: /home/{{ user }}/pull-secret.json
     origin:  ~/.generated/vmfiles/pull-secret.json
+  - path: /home/{{ user }}/gitops.sh
+    origin:  ~/.generated/vmfiles/gitops.sh
