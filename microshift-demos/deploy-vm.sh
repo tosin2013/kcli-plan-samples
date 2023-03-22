@@ -17,7 +17,6 @@ RHSM_ORG=$(yq eval '.rhsm_org' "${ANSIBLE_VAULT_FILE}")
 RHSM_ACTIVATION_KEY=$(yq eval '.rhsm_activationkey' "${ANSIBLE_VAULT_FILE}")
 OFFLINE_TOKEN=$(yq eval '.offline_token' "${ANSIBLE_VAULT_FILE}")
 PULL_SECRET=$(yq eval '.openshift_pull_secret' "${ANSIBLE_VAULT_FILE}")
-NET_NAME=qubinet
 VM_NAME=microshift-demos-vm
 IMAGE_NAME=rhel-baseos-9.1-x86_64-kvm.qcow2
 DISK_SIZE=200
