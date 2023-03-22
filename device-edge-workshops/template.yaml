@@ -28,9 +28,7 @@ cmds:
   - dnf install git vim unzip wget tar python3 python3-pip util-linux-user tmux bind-utils firewalld cockpit -y
   - systemctl start  firewalld && systemctl enable firewalld
   - systemctl enable --now cockpit.socket && firewall-cmd --permanent --add-service=cockpit && firewall-cmd --reload
-
-{% endif %}
-  - cd /home/{{ user }}microshift-demos && ./scripts/configure-builder && export  MICROSHIFT_DEV_PREVIEW=true  && ./scripts/mirror-repos
+  - cd /root/ && git clone https://github.com/jjaswanson4/device-edge-workshops.git
 files:
   - path: /root/local-inventory.yml
     origin: ~/.generated/vmfiles/local-inventory.yml
