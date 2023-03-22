@@ -36,7 +36,6 @@ cmds:
   - echo $OFFLINE_TOKEN > /root/offline_token
   - echo $OFFLINE_TOKEN > /home/{{ user }}/offline_token
 {% endif %}
-  - 
   - cd /home/{{ user }}/microshift-demos && ./scripts/configure-builder && export  MICROSHIFT_DEV_PREVIEW=true  && ./scripts/mirror-repos
 files:
   - path: /root/.pull-secret.json

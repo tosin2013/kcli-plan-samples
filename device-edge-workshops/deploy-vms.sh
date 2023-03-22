@@ -25,16 +25,16 @@ function deploy_via_kcli(){
     CPU_NUM=8
     sudo rm -rf kcli-profiles.yml
     if [ -f ~/.kcli/profiles.yml ]; then
-    sudo cp  ~/.kcli/profiles.yml kcli-profiles.yml
-    else 
+     sudo cp  ~/.kcli/profiles.yml kcli-profiles.yml
+    else
         sudo mkdir -p ~/.kcli
         sudo mkdir -p /root/.kcli
     fi
     if [ -d $HOME/.generated/vmfiles ]; then
-    echo "generated directory already exists"
+        echo "generated directory already exists"
     else
-    sudo mkdir -p  $HOME/.generated/vmfiles
-    sudo mkdir -p  /root/.generated/vmfiles
+        sudo mkdir -p  $HOME/.generated/vmfiles
+        sudo mkdir -p  /root/.generated/vmfiles
     fi
     sudo python3 profile_generator/profile_generator.py update_yaml device-edge-workshops device-edge-workshops/template.yaml \
     --image ${IMAGE_NAME} --user cloud-user --user-password ${PASSWORD} --net-name ${NET_NAME}  --offline-token ${OFFLINE_TOKEN}  \
@@ -45,7 +45,7 @@ function deploy_via_kcli(){
     ansiblesafe -f "${ANSIBLE_VAULT_FILE}" -o 1
     sudo cp kcli-profiles.yml ~/.kcli/profiles.yml
     sudo cp kcli-profiles.yml /root/.kcli/profiles.yml
-    sudo cp  local-inventory.yml  ~/.generated/vmfiles
+    sudo cp local-inventory.yml  ~/.generated/vmfiles
     sudo cp local-inventory.yml /root/.generated/vmfiles
     echo "Creating VM ${VM_NAME}"
     sudo kcli create vm -p device-edge-workshops ${VM_NAME} --wait

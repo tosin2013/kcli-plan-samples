@@ -1,6 +1,14 @@
 #!/bin/bash
 set -xe 
-cd /opt/qubinode-installer/kcli-plan-samples/
+if [ -f ../helper_scripts/default.env ];
+then 
+  source ../helper_scripts/default.env
+else
+  echo "default.env file does not exist"
+  exit 1
+fi
+
+cd $KCLI_SAMPLES_DIR
 
 export ANSIBLE_VAULT_FILE="$HOME/quibinode_navigator/inventories/localhost/group_vars/control/vault.yml"
 ansiblesafe -f "${ANSIBLE_VAULT_FILE}" -o 2
