@@ -24,7 +24,8 @@ cmds:
   - echo $OFFLINE_TOKEN > /home/{{ user }}/offline_token
 {% endif %}
   - curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-  - curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+  - cd /tmp/ &&  curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash && sudo mv kustomize /usr/local/bin/
+  - sudo chown fedora -R /home/fedora/
 files:
   - path: /root/pull-secret.json
     origin: ~/.generated/vmfiles/pull-secret.json

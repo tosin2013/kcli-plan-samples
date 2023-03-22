@@ -33,5 +33,10 @@ EOF
 
 cat >hosts<<EOF
 [client]
-192.168.1.104   ansible_connection=local
+192.168.1.104   ansible_user=admin
 EOF
+
+
+sudo ansible-playbook  -i hosts edge_vm.yml -t create_kvm_vm  --extra-vars "@playbook_vars.yml" -K
+
+sudo ansible-playbook  -i hosts edge_vm.yml -t destroy_kvm_vm --extra-vars "@your_vars.yml" -K

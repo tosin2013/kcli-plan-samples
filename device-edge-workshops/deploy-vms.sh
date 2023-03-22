@@ -1,6 +1,14 @@
 #!/bin/bash
 set -xe 
-cd /opt/qubinode-installer/kcli-plan-samples/
+if [ -f ../helper_scripts/default.env ];
+then 
+  source ../helper_scripts/default.env
+else
+  echo "default.env file does not exist"
+  exit 1
+fi
+
+cd $KCLI_SAMPLES_DIR
 
 function deploy_via_kcli(){
     export ANSIBLE_VAULT_FILE="$HOME/quibinode_navigator/inventories/localhost/group_vars/control/vault.yml"
@@ -10,7 +18,6 @@ function deploy_via_kcli(){
     RHSM_ACTIVATION_KEY=$(yq eval '.rhsm_activationkey' "${ANSIBLE_VAULT_FILE}")
     OFFLINE_TOKEN=$(yq eval '.offline_token' "${ANSIBLE_VAULT_FILE}")
     PULL_SECRET=$(yq eval '.openshift_pull_secret' "${ANSIBLE_VAULT_FILE}")
-    NET_NAME=qubinet
     VM_NAME=device-edge-workshops
     IMAGE_NAME=rhel-8.7-x86_64-kvm.qcow2
     DISK_SIZE=200
@@ -40,7 +47,6 @@ function deploy_via_kcli(){
     sudo cp kcli-profiles.yml /root/.kcli/profiles.yml
     sudo cp  local-inventory.yml  ~/.generated/vmfiles
     sudo cp local-inventory.yml /root/.generated/vmfiles
-    echo "Creating VM ${VM_NAME}"
     echo "Creating VM ${VM_NAME}"
     sudo kcli create vm -p device-edge-workshops ${VM_NAME} --wait
 }

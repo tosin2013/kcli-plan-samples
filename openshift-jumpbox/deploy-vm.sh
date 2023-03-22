@@ -1,8 +1,8 @@
 #!/bin/bash
 set -xe 
-if [ -f helper_scripts/default.env ];
+if [ -f ../helper_scripts/default.env ];
 then 
-  source helper_scripts/default.env
+  source ../helper_scripts/default.env
 else
   echo "default.env file does not exist"
   exit 1
@@ -10,7 +10,7 @@ fi
 
 cd $KCLI_SAMPLES_DIR
 
-export ANSIBLE_VAULT_FILE="$HOME/quibinode_navigator/inventories/localhost/group_vars/control/vault.yml"
+
 ansiblesafe -f "${ANSIBLE_VAULT_FILE}" -o 2
 PASSWORD=$(yq eval '.admin_user_password' "${ANSIBLE_VAULT_FILE}")
 OFFLINE_TOKEN=$(yq eval '.offline_token' "${ANSIBLE_VAULT_FILE}")
@@ -40,8 +40,8 @@ sudo cp kcli-profiles.yml ~/.kcli/profiles.yml
 sudo cp kcli-profiles.yml /root/.kcli/profiles.yml
 sudo cp pull-secret.json  ~/.generated/vmfiles
 sudo cp pull-secret.json /root/.generated/vmfiles
-sudo cp gitops.sh  ~/.generated/vmfiles
-sudo cp gitops.sh /root/.generated/vmfiles
+#sudo cp gitops.sh ~/.generated/vmfiles
+#sudo cp gitops.sh /root/.generated/vmfiles
 sudo rm pull-secret.json
 echo "Creating VM ${VM_NAME}"
 sudo kcli create vm -p openshift-jumpbox ${VM_NAME} --wait
