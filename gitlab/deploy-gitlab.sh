@@ -15,6 +15,8 @@ PASSWORD=$(yq eval '.admin_user_password' "${ANSIBLE_VAULT_FILE}")
 VM_NAME=gitlab-server
 IMAGE_NAME=Fedora-Cloud-Base-37-1.7.x86_64.qcow2
 DISK_SIZE=160
+MEMORTY=16384
+CPU_NUM=4
 sudo rm -rf kcli-profiles.yml
 if [ -f ~/.kcli/profiles.yml ]; then
   sudo cp  ~/.kcli/profiles.yml kcli-profiles.yml
@@ -29,7 +31,9 @@ else
   sudo mkdir -p  /root/.generated/vmfiles
 fi
 
-sudo python3 profile_generator/profile_generator.py update_yaml gitlab gitlab/template.yaml --image ${IMAGE_NAME} --user fedora --user-password ${PASSWORD} --net-name ${NET_NAME} --disk-size ${DISK_SIZE} 
+sudo python3 profile_generator/profile_generator.py update_yaml gitlab gitlab/template.yaml --image ${IMAGE_NAME} \
+--user fedora --user-password ${PASSWORD} --net-name ${NET_NAME} --disk-size ${DISK_SIZE} \
+--memory ${MEMORTY} --cpu-num ${CPU_NUM}
 sudo echo ${PULL_SECRET} | sudo tee pull-secret.json
 cat  kcli-profiles.yml
 ansiblesafe -f "${ANSIBLE_VAULT_FILE}" -o 1
