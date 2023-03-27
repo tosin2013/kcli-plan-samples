@@ -50,3 +50,5 @@ sudo rm pull-secret.json
 echo "Creating VM ${VM_NAME}"
 echo "Creating VM ${VM_NAME}"
 sudo kcli create vm -p microshift-demos ${VM_NAME} --wait
+
+

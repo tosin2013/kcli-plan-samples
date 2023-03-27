@@ -25,7 +25,7 @@ function deploy_via_kcli(){
     CPU_NUM=8
     sudo rm -rf kcli-profiles.yml
     if [ -f ~/.kcli/profiles.yml ]; then
-     sudo cp  ~/.kcli/profiles.yml kcli-profiles.yml
+      sudo cp  ~/.kcli/profiles.yml kcli-profiles.yml
     else
         sudo mkdir -p ~/.kcli
         sudo mkdir -p /root/.kcli
@@ -45,8 +45,8 @@ function deploy_via_kcli(){
     ansiblesafe -f "${ANSIBLE_VAULT_FILE}" -o 1
     sudo cp kcli-profiles.yml ~/.kcli/profiles.yml
     sudo cp kcli-profiles.yml /root/.kcli/profiles.yml
-    sudo cp local-inventory.yml  ~/.generated/vmfiles
-    sudo cp local-inventory.yml /root/.generated/vmfiles
+    sudo cp $(pwd)/device-edge-workshops/local-inventory.yml  ~/.generated/vmfiles
+    sudo cp $(pwd)/device-edge-workshops/local-inventory.yml /root/.generated/vmfiles
     echo "Creating VM ${VM_NAME}"
     sudo kcli create vm -p device-edge-workshops ${VM_NAME} --wait
 }
@@ -65,3 +65,21 @@ then
 else [ $DEPLOYMENT_TYPE == "aws" ];
     deploy_via_aws
 fi
+
+cd /opt/freeipa-workshop-deployer/2_ansible_config/
+IP_ADDRESS=$(sudo kcli info vm freeipa | grep ip: | awk '{print $2}')
+echo "IP Address: ${IP_ADDRESS}"
+sudo python3  dynamic_dns.py --add controller "$IP_ADDRESS" 
+sudo python3 dynamic_dns.py --add 'cockpit' "$IP_ADDRESS" 
+sudo python3 dynamic_dns.py --add 'gitea' "$IP_ADDRESS"
+sudo python3 dynamic_dns.py --add 'edge-manager' "$IP_ADDRESS"
+cd ..
+./2_ansible_config/populate-hostnames.sh || exit 1
+cd $KCLI_SAMPLES_DIR
+
+sed -i 's\your-workshop-domain.lcl\qubinodelab.io\g' local-inventory.yml
+sed -i "s|192.168.200.10|$(hostname -I)|g" local-inventory.yml
+
+ansible-galaxy  install -r execution-environment/requirements.yml
+ansible-playbook run provisioner/provision_lab.yml -e @extra_vars.yml -i local-inventory.yml
+# ansible-playbook  provisioner/provision_lab.yml -e @extra_vars.yml -i local-inventory.yml

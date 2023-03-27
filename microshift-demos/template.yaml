@@ -37,6 +37,7 @@ cmds:
   - echo $OFFLINE_TOKEN > /home/{{ user }}/offline_token
 {% endif %}
   - cd /home/{{ user }}/microshift-demos && ./scripts/configure-builder && export  MICROSHIFT_DEV_PREVIEW=true  && ./scripts/mirror-repos
+  - systemctl enable --now cockpit.socket
 files:
   - path: /root/.pull-secret.json
     origin: ~/.generated/vmfiles/pull-secret.json

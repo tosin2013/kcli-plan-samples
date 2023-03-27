@@ -28,6 +28,6 @@ all:
               edge_manager:
                 domain: "edge-manager.your-workshop-domain.lcl"
   vars:
-    ansible_user: ansible
-    ansible_password: your-password
-    ansible_become_password: your-password
+    ansible_user: root
+    ansible_password:  your-password
+    ansible_become_password:  your-password

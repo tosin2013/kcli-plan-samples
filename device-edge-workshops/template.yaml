@@ -25,10 +25,11 @@ cmds:
   - subscription-manager refresh
   - subscription-manager attach --auto
   - sudo dnf update -y
-  - dnf install git vim unzip wget tar python3 python3-pip util-linux-user tmux bind-utils firewalld cockpit -y
-  - systemctl start  firewalld && systemctl enable firewalld
-  - systemctl enable --now cockpit.socket && firewall-cmd --permanent --add-service=cockpit && firewall-cmd --reload
-  - cd /root/ && git clone https://github.com/jjaswanson4/device-edge-workshops.git
+  - dnf install git vim unzip wget tar python3 python3-pip util-linux-user tmux bind-utils firewalld cockpit ansible-core libvirt-client -y
+  - systemctl enable --now cockpit.socket
+  - cd /opt/ && git clone https://github.com/jjaswanson4/device-edge-workshops.git
+  - cd /opt/device-edge-workshops && ssh-keygen -t rsa -b 4096 -f  provisioner/lab-prefix.internallab.io/ssh-key.pub  -N ''
+  - sudo python3 -m pip install setuptools ansible-navigator
 files:
   - path: /root/local-inventory.yml
     origin: ~/.generated/vmfiles/local-inventory.yml
