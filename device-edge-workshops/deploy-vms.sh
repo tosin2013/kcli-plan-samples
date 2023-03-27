@@ -66,6 +66,8 @@ function deploy_via_kcli(){
     $(pwd)/device-edge-workshops//manifest-generator.sh /tmp/manifest.zip
     sudo cp $(pwd)/device-edge-workshops/extra_vars.yml  ~/.generated/vmfiles
     sudo cp $(pwd)/device-edge-workshops/extra_vars.yml /root/.generated/vmfiles
+    cat  $(pwd)/device-edge-workshops/extra_vars.yml
+    sleep 10s
     echo "Creating VM ${VM_NAME}"
     sudo kcli create vm -p device-edge-workshops ${VM_NAME} --wait
 }
