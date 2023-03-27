@@ -40,8 +40,8 @@ sudo cp kcli-profiles.yml ~/.kcli/profiles.yml
 sudo cp kcli-profiles.yml /root/.kcli/profiles.yml
 sudo cp pull-secret.json  ~/.generated/vmfiles
 sudo cp pull-secret.json /root/.generated/vmfiles
-#sudo cp gitops.sh ~/.generated/vmfiles
-#sudo cp gitops.sh /root/.generated/vmfiles
+sudo cp $(pwd)/openshift-jumpbox/gitops.sh ~/.generated/vmfiles
+sudo cp $(pwd)/openshift-jumpbox/gitops.sh /root/.generated/vmfiles
 sudo rm pull-secret.json
 echo "Creating VM ${VM_NAME}"
 sudo kcli create vm -p openshift-jumpbox ${VM_NAME} --wait
