@@ -8,6 +8,13 @@ else
   exit 1
 fi
 
+if [ -f /tmp/manifest.zip ]; then
+  echo "manifest.zip file already exists"
+else
+  echo "manifest.zip file does not exist"
+  exit 1
+fi
+
 cd $KCLI_SAMPLES_DIR
 
 function deploy_via_kcli(){
@@ -56,6 +63,7 @@ function deploy_via_kcli(){
     sed -i "s/your-username/${RHSM_USERNAME}/g" $(pwd)/device-edge-workshops/extra_vars.yml
     sed -i "s/your-token-here/${OFFLINE_TOKEN}/g" $(pwd)/device-edge-workshops/extra_vars.yml
     sed -i "s/internallab.io/${DOMAIN_NAME}/g" $(pwd)/device-edge-workshops/extra_vars.yml
+    ./manifest-generator.sh /tmp/manifest.zip
     sudo cp $(pwd)/device-edge-workshops/extra_vars.yml  ~/.generated/vmfiles
     sudo cp $(pwd)/device-edge-workshops/extra_vars.yml /root/.generated/vmfiles
     echo "Creating VM ${VM_NAME}"
