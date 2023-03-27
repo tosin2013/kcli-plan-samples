@@ -94,7 +94,5 @@ Ansible Automation Platform 2.2.2 Setup Bundle
 Last modified: 2023-03-09 SHA-256 Checksum: a93c4133158150c2d542009112a6876741f42d069e5776ba1946e6cbb028593c
 URL: https://access.redhat.com/downloads/content/480/ver=2.2/rhel---8/2.2/x86_64/product-software"
 echo "--------------------------------"
-echo "EXAMPLE: scp ~/Downloads/manifest.zip lab-user@hypervisor.exampl.com:/tmp"
-echo "EXAMPLE: sudo kcli scp /tmpmanifest.zip  device-edge-workshops:/tmp"
 echo "sudo kcli ssh device-edge-workshops"
 echo "sudo su -"

@@ -12,6 +12,7 @@ ssh-keygen -t rsa -b 4096 -f lab-prefix.ansiblework.io/ssh-key -N ''
 BUILDER_KEY=$(cat lab-prefix.ansiblework.io/ssh-key.pub)
 cd ..
 
+cp ~/extra_vars.yml .
 cp ~/local-inventory.yml .
 sed -i 's\your-workshop-domain.lcl\qubinodelab.io\g' local-inventory.yml
 sed -i "s|192.168.200.10|$(hostname -I)|g" local-inventory.yml
