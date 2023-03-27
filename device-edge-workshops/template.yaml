@@ -29,9 +29,13 @@ cmds:
   - systemctl enable --now cockpit.socket
   - cd /opt/ && git clone https://github.com/jjaswanson4/device-edge-workshops.git
   - cd /opt/device-edge-workshops && ssh-keygen -t rsa -b 4096 -f  provisioner/lab-prefix.internallab.io/ssh-key.pub  -N ''
-  - sudo python3 -m pip install setuptools ansible-navigator
+  - sudo python3 -m pip install setuptools ansible-navigator jmespath
 files:
   - path: /root/local-inventory.yml
     origin: ~/.generated/vmfiles/local-inventory.yml
   - path: /home/{{ user }}/local-inventory.yml
     origin:  ~/.generated/vmfiles/local-inventory.yml
+  - path: /root/extra_vars.yml
+    origin: ~/.generated/vmfiles/extra_vars.yml
+  - path: /home/{{ user }}/extra_vars.yml
+    origin:  ~/.generated/vmfiles/extra_vars.yml

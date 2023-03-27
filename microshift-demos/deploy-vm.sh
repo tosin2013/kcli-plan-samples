@@ -50,5 +50,8 @@ sudo rm pull-secret.json
 echo "Creating VM ${VM_NAME}"
 echo "Creating VM ${VM_NAME}"
 sudo kcli create vm -p microshift-demos ${VM_NAME} --wait
-
-
+echo "VM ${VM_NAME} created"
+echo "sudo kcli ssh ${VM_NAME}"
+echo "sudo su - "
+echo "ssh-keygen -t rsa -b 4096 -f ~/.ssh/cluster-key -N ''"
+echo "ssh-copy-id -i ~/.ssh/cluster-key admin@192.168.1.123"

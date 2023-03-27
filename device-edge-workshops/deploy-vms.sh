@@ -45,8 +45,19 @@ function deploy_via_kcli(){
     ansiblesafe -f "${ANSIBLE_VAULT_FILE}" -o 1
     sudo cp kcli-profiles.yml ~/.kcli/profiles.yml
     sudo cp kcli-profiles.yml /root/.kcli/profiles.yml
+    cp $(pwd)/device-edge-workshops/local-inventory.yml $(pwd)/device-edge-workshops/local-inventory.yml.bak
+    sed -i "s/your-password/${PASSWORD}/g" $(pwd)/device-edge-workshops/local-inventory.yml
     sudo cp $(pwd)/device-edge-workshops/local-inventory.yml  ~/.generated/vmfiles
     sudo cp $(pwd)/device-edge-workshops/local-inventory.yml /root/.generated/vmfiles
+    rm -rf $(pwd)/device-edge-workshops/local-inventory.yml
+    cp $(pwd)/device-edge-workshops/local-inventory.yml.bak $(pwd)/device-edge-workshops/local-inventory.yml
+    cp $(pwd)/device-edge-workshops/extra_vars.yml $(pwd)/device-edge-workshops/extra_vars.yml.bak
+    sed -i "s/your-password/${PASSWORD}/g" $(pwd)/device-edge-workshops/extra_vars.yml
+    sed -i "s/your-username/${RHSM_USERNAME}/g" $(pwd)/device-edge-workshops/extra_vars.yml
+    sed -i "s/your-token-here/${OFFLINE_TOKEN}/g" $(pwd)/device-edge-workshops/extra_vars.yml
+    sed -i "s/internallab.io/${DOMAIN_NAME}/g" $(pwd)/device-edge-workshops/extra_vars.yml
+    sudo cp $(pwd)/device-edge-workshops/extra_vars.yml  ~/.generated/vmfiles
+    sudo cp $(pwd)/device-edge-workshops/extra_vars.yml /root/.generated/vmfiles
     echo "Creating VM ${VM_NAME}"
     sudo kcli create vm -p device-edge-workshops ${VM_NAME} --wait
 }
@@ -77,3 +88,13 @@ cd ..
 ./2_ansible_config/populate-hostnames.sh || exit 1
 cd $KCLI_SAMPLES_DIR
 
+echo "Current Ansible Release:
+--------------------------------
+Ansible Automation Platform 2.2.2 Setup Bundle
+Last modified: 2023-03-09 SHA-256 Checksum: a93c4133158150c2d542009112a6876741f42d069e5776ba1946e6cbb028593c
+URL: https://access.redhat.com/downloads/content/480/ver=2.2/rhel---8/2.2/x86_64/product-software"
+echo "--------------------------------"
+echo "EXAMPLE: scp ~/Downloads/manifest.zip lab-user@hypervisor.exampl.com:/tmp"
+echo "EXAMPLE: sudo kcli scp /tmpmanifest.zip  device-edge-workshops:/tmp"
+echo "sudo kcli ssh device-edge-workshops"
+echo "sudo su -"
