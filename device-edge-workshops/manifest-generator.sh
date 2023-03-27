@@ -6,7 +6,7 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 
-manifest_zip_file="$2"
+manifest_zip_file="$1"
 
 # Encode the manifest file in base64
 base64_content=$(base64 "$manifest_zip_file")
