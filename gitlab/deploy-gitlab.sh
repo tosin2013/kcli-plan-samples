@@ -49,8 +49,8 @@ sudo cp kcli-profiles.yml ~/.kcli/profiles.yml
 sudo cp kcli-profiles.yml /root/.kcli/profiles.yml
 sudo cp $(pwd)/gitlab/playbook_vars.yml $(pwd)/gitlab/playbook_vars.yml.bak
 sudo cp $(pwd)/gitlab/deploy-gitlab-instance.sh $(pwd)/gitlab/deploy-gitlab-instance.sh.bak
-sed -i "s/gitlab.testnet.io/gitlab.${DOMAIN_NAME}/g" $(pwd)/gitlab/playbook_vars.yml
-sed -i "s/gitlub.testnet.io/gitlab.${DOMAIN_NAME}/g" $(pwd)/gitlab/deploy-gitlab-instance.sh
+sudo sed -i "s/gitlab.testnet.io/gitlab.${DOMAIN_NAME}/g" $(pwd)/gitlab/playbook_vars.yml
+sudo sed -i "s/gitlub.testnet.io/gitlab.${DOMAIN_NAME}/g" $(pwd)/gitlab/deploy-gitlab-instance.sh
 sudo cp $(pwd)/gitlab/playbook_vars.yml /root/.generated/vmfiles
 sudo cp $(pwd)/gitlab/deploy-gitlab-instance.sh /root/.generated/vmfiles
 sudo mv $(pwd)/gitlab/playbook_vars.yml.bak $(pwd)/gitlab/playbook_vars.yml
