@@ -33,7 +33,7 @@ fi
 
 sudo python3 profile_generator/profile_generator.py update_yaml gitlab gitlab/template.yaml --image ${IMAGE_NAME} \
 --user fedora --user-password ${PASSWORD} --net-name ${NET_NAME} --disk-size ${DISK_SIZE} \
---memory ${MEMORTY} --cpu-num ${CPU_NUM}
+--memory ${MEMORTY} --numcpus ${CPU_NUM}
 sudo echo ${PULL_SECRET} | sudo tee pull-secret.json
 cat  kcli-profiles.yml
 ansiblesafe -f "${ANSIBLE_VAULT_FILE}" -o 1
