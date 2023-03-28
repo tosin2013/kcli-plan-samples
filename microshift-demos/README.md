@@ -30,3 +30,6 @@ e2e-demo  edge-console-demo  hello-microshift-demo  ibaas-demo	ostree-demo
 # Adding source 'transmission' to builder
 # Loading ostree-demo blueprint v0.0.1
 ```
+
+Links: 
+* https://tadayoshi-sato.medium.com/using-openshift-routes-with-microshift-fe78c7735f50
