@@ -1,5 +1,6 @@
 #!/bin/bash
-
+MACHINE_NAME=hypervisor.rxc4p.dynamic.opentlc.com
+MACHINE_USER=lab-user
 # Display a menu and get the user's choice
 echo "Select a demo to build:"
 echo "1. e2e-demo"
@@ -34,3 +35,16 @@ esac
 # Call the build script with the selected DEMONAME
 ls demos/
 ./scripts/build $DEMONAME
+
+scp builds/$DEMONAME/$DEMONAME-installer.x86_64.iso $MACHINE_USER@$MACHINE_NAME:/tmp/
+
+cat >hosts<<EOF
+[client]
+${MACHINE_NAME}   ansible_user=${MACHINE_USER}
+EOF
+
+sed 's/rhel-edge-kvm.iso/hello-microshift-demo-installer.x86_64.iso/g' edge_vars.yml > edge_vars_use.yml
+
+eval $(ssh-agent)
+ssh-add ~/.ssh/cluster-key
+sudo ansible-playbook  -i hosts playbooks.yml -t create_kvm_vm  --extra-vars "@edge_vars_use.yml"  --private-key ~/.ssh/cluster-key -K

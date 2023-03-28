@@ -17,6 +17,7 @@ IMAGE_NAME=ubuntu-22.04-server-cloudimg-amd64.img
 DISK_SIZE=160
 MEMORTY=16384
 CPU_NUM=4
+DOMAIN_NAME=$(yq eval '.domain_name' "${ANSIBLE_ALL_VARIABLES}")
 sudo rm -rf kcli-profiles.yml
 if [ -f ~/.kcli/profiles.yml ]; then
   sudo cp  ~/.kcli/profiles.yml kcli-profiles.yml
@@ -39,6 +40,13 @@ cat  kcli-profiles.yml
 ansiblesafe -f "${ANSIBLE_VAULT_FILE}" -o 1
 sudo cp kcli-profiles.yml ~/.kcli/profiles.yml
 sudo cp kcli-profiles.yml /root/.kcli/profiles.yml
-sudo rm pull-secret.json
+sudo cp $(pwd)/gitlab/playbook_vars.yml $(pwd)/gitlab/playbook_vars.yml.bak
+sudo cp $(pwd)/gitlab/deploy-gitlab-instance.sh $(pwd)/gitlab/deploy-gitlab-instance.sh.bak
+sed -i "s/gitlab.testnet.io/gitlab.${DOMAIN_NAME}/g" $(pwd)/gitlab/playbook_vars.yml
+sed -i "s/gitlub.testnet.io/gitlab.${DOMAIN_NAME}/g" $(pwd)/gitlab/deploy-gitlab-instance.sh
+sudo cp $(pwd)/gitlab/playbook_vars.yml /root/.generated/vmfiles
+sudo cp $(pwd)/gitlab/deploy-gitlab-instance.sh /root/.generated/vmfiles
+sudo mv $(pwd)/gitlab/playbook_vars.yml.bak $(pwd)/gitlab/playbook_vars.yml
+sudo mv $(pwd)/gitlab/deploy-gitlab-instance.sh.bak $(pwd)/gitlab/deploy-gitlab-instance.sh
 echo "Creating VM ${VM_NAME}"
 sudo kcli create vm -p gitlab ${VM_NAME} --wait

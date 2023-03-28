@@ -8,5 +8,9 @@ disks:
   - size: {{ disk_size }}
 cmds:
   - echo {{ user_password }} | passwd --stdin root
-
+files:
+  - path: /root/playbook_vars.yml
+    origin: ~/.generated/vmfiles/playbook_vars.yml
+  - path: /root/deploy-gitlab-instance.sh
+    origin: ~/.generated/vmfiles/deploy-gitlab-instance.sh
 

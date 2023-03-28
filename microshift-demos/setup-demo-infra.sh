@@ -23,13 +23,8 @@ function configure_os(){
   ./scripts/mirror-repos
 }
 
-sudo git a
 
-
-cp builds/hello-microshift-demo/hello-microshift-demo-installer.x86_64.iso /tmp/hello-microshift-demo-installer.x86_64.iso
- sudo chown cloud-user:cloud-user -R /home/cloud-user/
-
-cat >edge_vm.yml<<EOF
+cat >playbooks.yml<<EOF
 - hosts: client
   roles:
     - rhel-edge-kvm-role
@@ -40,13 +35,12 @@ cat >hosts<<EOF
 192.168.1.39   ansible_user=admin
 EOF
 
+sudo ansible-galaxy install git+https://github.com/tosin2013/rhel-edge-kvm-role.git --force
 
+sed 's/rhel-edge-kvm.iso/hello-microshift-demo-installer.x86_64.iso/g' edge_vars.yml > edge_vars_use.yml
+sudo ansible-playbook  -i hosts playbooks.yml -t create_kvm_vm  --extra-vars "@edge_vars_use.yml"  --private-key ~/.ssh/cluster-key -K
 
-scp builds/hello-microshift-demo/hello-microshift-demo-installer.x86_64.iso admin@192.168.1.39:/tmp/
-sed 's/rhel-edge-kvm.iso/hello-microshift-demo-installer.x86_64.iso/g' edge_vars.yml > playbook_vars.yml
-sudo ansible-playbook  -i hosts edge_vm.yml -t create_kvm_vm  --extra-vars "@playbook_vars.yml"  --private-key ~/.ssh/cluster-key -K
-
-sudo ansible-playbook  -i hosts edge_vm.yml -t destroy_kvm_vm --extra-vars "@your_vars.yml" -K
+sudo ansible-playbook  -i hosts playbooks.yml -t destroy_kvm_vm --extra-vars "@edge_vars_use.yml" -K
 
 
 # Requirements for target machine
