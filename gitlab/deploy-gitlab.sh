@@ -13,7 +13,7 @@ cd $KCLI_SAMPLES_DIR
 ansiblesafe -f "${ANSIBLE_VAULT_FILE}" -o 2
 PASSWORD=$(yq eval '.admin_user_password' "${ANSIBLE_VAULT_FILE}")
 VM_NAME=gitlab-server
-IMAGE_NAME=Fedora-Cloud-Base-37-1.7.x86_64.qcow2
+IMAGE_NAME=ubuntu-22.04-server-cloudimg-amd64.img
 DISK_SIZE=160
 MEMORTY=16384
 CPU_NUM=4
