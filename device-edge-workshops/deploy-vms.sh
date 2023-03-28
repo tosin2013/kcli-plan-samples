@@ -21,7 +21,8 @@ function deploy_via_kcli(){
     export ANSIBLE_VAULT_FILE="$HOME/quibinode_navigator/inventories/localhost/group_vars/control/vault.yml"
     ansiblesafe -f "${ANSIBLE_VAULT_FILE}" -o 2
     PASSWORD=$(yq eval '.admin_user_password' "${ANSIBLE_VAULT_FILE}")
-    RHSM_USERNAME=$(yq eval '.admin_user_password' "${ANSIBLE_VAULT_FILE}")
+    RHSM_PASSWORD=$(yq eval '.rhsm_password' "${ANSIBLE_VAULT_FILE}")
+    RHSM_USERNAME=$(yq eval '.rhsm_username' "${ANSIBLE_VAULT_FILE}")
     RHSM_ORG=$(yq eval '.rhsm_org' "${ANSIBLE_VAULT_FILE}")
     RHSM_ACTIVATION_KEY=$(yq eval '.rhsm_activationkey' "${ANSIBLE_VAULT_FILE}")
     OFFLINE_TOKEN=$(yq eval '.offline_token' "${ANSIBLE_VAULT_FILE}")
@@ -60,7 +61,7 @@ function deploy_via_kcli(){
     rm -rf $(pwd)/device-edge-workshops/local-inventory.yml
     cp $(pwd)/device-edge-workshops/local-inventory.yml.bak $(pwd)/device-edge-workshops/local-inventory.yml
     cp $(pwd)/device-edge-workshops/extra_vars.yml $(pwd)/device-edge-workshops/extra_vars.yml.bak
-    sed -i "s/your-password/${PASSWORD}/g" $(pwd)/device-edge-workshops/extra_vars.yml
+    sed -i "s/your-password/${RHSM_PASSWORD}/g" $(pwd)/device-edge-workshops/extra_vars.yml
     sed -i "s/your-username/${RHSM_USERNAME}/g" $(pwd)/device-edge-workshops/extra_vars.yml
     sed -i "s/your-token-here/${OFFLINE_TOKEN}/g" $(pwd)/device-edge-workshops/extra_vars.yml
     sed -i "s/internallab.io/${DOMAIN_NAME}/g" $(pwd)/device-edge-workshops/extra_vars.yml

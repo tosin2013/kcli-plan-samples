@@ -1,12 +1,9 @@
 #!/bin/bash 
 # https://github.com/jjaswanson4/device-edge-workshops/tree/main/provisioner#lab-setup
 
+DOMAIN=ansiblework.io
 
 cd /opt/device-edge-workshops/provisioner
-URL=http://192.168.1.240/manifest_tower-dev_20230325T132029Z.zip
-curl -s -o manifest.zip $URL
-
-cp /tmp/manifest_tower-dev_20220811T151908Z.zip .
 mkdir -p  lab-prefix.ansiblework.io
 ssh-keygen -t rsa -b 4096 -f lab-prefix.ansiblework.io/ssh-key -N ''
 BUILDER_KEY=$(cat lab-prefix.ansiblework.io/ssh-key.pub)
@@ -14,7 +11,7 @@ cd ..
 
 cp ~/extra_vars.yml .
 cp ~/local-inventory.yml .
-sed -i 's\your-workshop-domain.lcl\qubinodelab.io\g' local-inventory.yml
+sed -i "s|your-workshop-domain.lcl|${DOMAIN}|g" local-inventory.yml
 sed -i "s|192.168.200.10|$(hostname -I)|g" local-inventory.yml
 sed -i "s|your-key-here|${BUILDER_KEY}|g" extra_vars.yml
 
