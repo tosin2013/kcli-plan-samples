@@ -28,7 +28,7 @@ function deploy_via_kcli(){
     RHSM_ACTIVATION_KEY=$(yq eval '.rhsm_activationkey' "${ANSIBLE_VAULT_FILE}")
     OFFLINE_TOKEN=$(yq eval '.offline_token' "${ANSIBLE_VAULT_FILE}")
     PULL_SECRET=$(yq eval '.openshift_pull_secret' "${ANSIBLE_VAULT_FILE}")
-    DOMAIN_NAME=$(yq eval '.domain_name' "${ANSIBLE_ALL_VARIABLES}")
+    DOMAIN_NAME=$(yq eval '.domain' "${ANSIBLE_ALL_VARIABLES}")
     VM_NAME=device-edge-workshops
     IMAGE_NAME=rhel-8.7-x86_64-kvm.qcow2
     DISK_SIZE=200

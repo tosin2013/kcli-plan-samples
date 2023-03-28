@@ -24,7 +24,7 @@ IMAGE_NAME=ubuntu-22.04-server-cloudimg-amd64.img
 DISK_SIZE=160
 MEMORTY=16384
 CPU_NUM=4
-DOMAIN_NAME=$(yq eval '.domain_name' "${ANSIBLE_ALL_VARIABLES}")
+DOMAIN_NAME=$(yq eval '.domain' "${ANSIBLE_ALL_VARIABLES}")
 sudo rm -rf kcli-profiles.yml
 if [ -f ~/.kcli/profiles.yml ]; then
   sudo cp  ~/.kcli/profiles.yml kcli-profiles.yml
