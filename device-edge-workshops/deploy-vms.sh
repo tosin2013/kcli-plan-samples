@@ -19,6 +19,7 @@ cd $KCLI_SAMPLES_DIR
 
 function deploy_via_kcli(){
     export ANSIBLE_VAULT_FILE="$HOME/quibinode_navigator/inventories/localhost/group_vars/control/vault.yml"
+    export ANSIBLE_ALL_VARIABLES="$HOME/quibinode_navigator/inventories/localhost/group_vars/all.yml"
     ansiblesafe -f "${ANSIBLE_VAULT_FILE}" -o 2
     PASSWORD=$(yq eval '.admin_user_password' "${ANSIBLE_VAULT_FILE}")
     RHSM_PASSWORD=$(yq eval '.rhsm_password' "${ANSIBLE_VAULT_FILE}")
@@ -27,6 +28,7 @@ function deploy_via_kcli(){
     RHSM_ACTIVATION_KEY=$(yq eval '.rhsm_activationkey' "${ANSIBLE_VAULT_FILE}")
     OFFLINE_TOKEN=$(yq eval '.offline_token' "${ANSIBLE_VAULT_FILE}")
     PULL_SECRET=$(yq eval '.openshift_pull_secret' "${ANSIBLE_VAULT_FILE}")
+    DOMAIN_NAME=$(yq eval '.domain_name' "${ANSIBLE_ALL_VARIABLES}")
     VM_NAME=device-edge-workshops
     IMAGE_NAME=rhel-8.7-x86_64-kvm.qcow2
     DISK_SIZE=200
