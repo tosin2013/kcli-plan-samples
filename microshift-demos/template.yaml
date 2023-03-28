@@ -30,13 +30,13 @@ cmds:
   - systemctl enable --now cockpit.socket && firewall-cmd --permanent --add-service=cockpit && firewall-cmd --reload
   - cd /tmp/ && curl -OL https://raw.githubusercontent.com/tosin2013/openshift-4-deployment-notes/master/pre-steps/configure-openshift-packages.sh
   - chmod +x /tmp/configure-openshift-packages.sh && /tmp/configure-openshift-packages.sh -i
-  - cd /home/{{ user }} && git clone https://github.com/redhat-et/microshift-demos.git
+  - cd /root && git clone https://github.com/redhat-et/microshift-demos.git
 {% if offline_token %}
   - export OFFLINE_TOKEN={{ offline_token }}
   - echo $OFFLINE_TOKEN > /root/offline_token
-  - echo $OFFLINE_TOKEN > /home/{{ user }}/offline_token
+  - echo $OFFLINE_TOKEN > /root/offline_token
 {% endif %}
-  - cd /home/{{ user }}/microshift-demos && ./scripts/configure-builder && export  MICROSHIFT_DEV_PREVIEW=true  && ./scripts/mirror-repos
+  - cd /root/microshift-demos && ./scripts/configure-builder && export  MICROSHIFT_DEV_PREVIEW=true  && ./scripts/mirror-repos
   - systemctl enable --now cockpit.socket
   - ansible-galaxy collection install community.libvirt
   - ansible-galaxy collection install ansible.posix
@@ -44,5 +44,3 @@ cmds:
 files:
   - path: /root/.pull-secret.json
     origin: ~/.generated/vmfiles/pull-secret.json
-  - path: /home/{{ user }}/.pull-secret.json
-    origin:  ~/.generated/vmfiles/pull-secret.json
