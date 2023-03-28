@@ -2,6 +2,11 @@
 # https://github.com/jjaswanson4/device-edge-workshops/tree/main/provisioner#lab-setup
 
 DOMAIN=ansiblework.io
+# Set the value to "yes"
+sed -i 's/^#*PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+# Restart the SSH service
+systemctl restart sshd
 
 cd /opt/device-edge-workshops/provisioner
 mkdir -p  lab-prefix.ansiblework.io
@@ -14,7 +19,7 @@ cp ~/local-inventory.yml .
 sed -i "s|your-workshop-domain.lcl|${DOMAIN}|g" local-inventory.yml
 sed -i "s|192.168.200.10|$(hostname -I)|g" local-inventory.yml
 sed -i "s|your-key-here|${BUILDER_KEY}|g" extra_vars.yml
-
+cat extra_vars.yml | less
 ansible-galaxy  install -r execution-environment/requirements.yml
 sed -i '16d' provisioner/workshop_vars/rhde_aw_120.yml
 cat provisioner/workshop_vars/rhde_aw_120.yml | grep groups

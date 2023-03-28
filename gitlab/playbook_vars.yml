@@ -1,7 +1,7 @@
 ---
 gitlab_external_url: "https://CHANGEME/"
 # The edition of GitLab to install. Usually either gitlab-ce (Community Edition) or gitlab-ee (Enterprise Edition).
-gitlab_version: 'gitlab-ce' #gitlab-ce or gitlab-ee 
+gitlab_version: '' #gitlab-ce or gitlab-ee 
 
 # Controls whether to validate certificates when downloading the GitLab installation repository install script.
 gitlab_letsencrypt_enable: false
