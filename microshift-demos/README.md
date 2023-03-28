@@ -15,3 +15,18 @@ The [MicroShift Demos](https://github.com/redhat-et/microshift-demos) repo conta
 ```bash
 $ ./deploy-vms.sh
 ```
+
+### Run demo
+```bash
+./deploy-scripts.sh
+Select a demo to build:
+1. e2e-demo
+2. edge-console-demo
+3. hello-microshift-demo
+4. ibaas-demo
+5. ostree-demo
+Enter choice [1-5]: 5
+e2e-demo  edge-console-demo  hello-microshift-demo  ibaas-demo	ostree-demo
+# Adding source 'transmission' to builder
+# Loading ostree-demo blueprint v0.0.1
+```
