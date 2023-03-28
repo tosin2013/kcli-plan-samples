@@ -14,7 +14,7 @@ base64_content=$(base64 "$manifest_zip_file")
 
 
 # Remove the existing base64_manifest line from the input YAML file
-sed -i '/^base64_manifest/d' $extra_vars_path
+# sed -i '/^base64_manifest/d' $extra_vars_path
 
 # Append the new base64_manifest line with multi-line content
 echo "base64_manifest: |" | tee -a $extra_vars_path

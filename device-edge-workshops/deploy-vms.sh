@@ -30,7 +30,7 @@ function deploy_via_kcli(){
     PULL_SECRET=$(yq eval '.openshift_pull_secret' "${ANSIBLE_VAULT_FILE}")
     DOMAIN_NAME=$(yq eval '.domain' "${ANSIBLE_ALL_VARIABLES}")
     VM_NAME=device-edge-workshops
-    IMAGE_NAME=rhel-8.7-x86_64-kvm.qcow2
+    IMAGE_NAME=rhel-baseos-9.1-x86_64-kvm.qcow2
     DISK_SIZE=200
     MEMORTY=32768
     CPU_NUM=8
@@ -70,7 +70,7 @@ function deploy_via_kcli(){
     $(pwd)/device-edge-workshops//manifest-generator.sh /tmp/manifest.zip
     sudo cp $(pwd)/device-edge-workshops/extra_vars.yml  ~/.generated/vmfiles
     sudo cp $(pwd)/device-edge-workshops/extra_vars.yml /root/.generated/vmfiles
-    cat  $(pwd)/device-edge-workshops/extra_vars.yml
+    cat  $(pwd)/device-edge-workshops/extra_vars.yml | less
     sleep 10s
     echo "Creating VM ${VM_NAME}"
     sudo kcli create vm -p device-edge-workshops ${VM_NAME} --wait
@@ -104,9 +104,9 @@ cd $KCLI_SAMPLES_DIR
 
 echo "Current Ansible Release:
 --------------------------------
-Ansible Automation Platform 2.2.2 Setup Bundle
-Last modified: 2023-03-09 SHA-256 Checksum: a93c4133158150c2d542009112a6876741f42d069e5776ba1946e6cbb028593c
-URL: https://access.redhat.com/downloads/content/480/ver=2.2/rhel---8/2.2/x86_64/product-software"
+Ansible Automation Platform 2.3 Setup Bundle
+Last modified: 2023-03-16 SHA-256 Checksum: eae31a1c45e057c3f5d2302c6cf497060a51baec73c86a7f95042d51e4150eb8
+URL: https://access.redhat.com/downloads/content/480/ver=2.3/rhel---9/2.3/x86_64/product-software"
 echo "--------------------------------"
 echo "sudo kcli ssh device-edge-workshops"
 echo "sudo su -"
