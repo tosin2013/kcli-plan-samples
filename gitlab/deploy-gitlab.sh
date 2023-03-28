@@ -8,6 +8,13 @@ else
   exit 1
 fi
 
+if [ -f  ~/quibinode_navigator/ansible_vault_setup.sh]; then
+   sudo ~/quibinode_navigator/ansible_vault_setup.sh
+else
+  echo "ansible_vault_setup.sh file does not exist"
+  exit 1
+fi
+
 cd $KCLI_SAMPLES_DIR
 
 ansiblesafe -f "${ANSIBLE_VAULT_FILE}" -o 2
