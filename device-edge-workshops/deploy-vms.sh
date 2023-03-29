@@ -56,18 +56,18 @@ function deploy_via_kcli(){
     ansiblesafe -f "${ANSIBLE_VAULT_FILE}" -o 1
     sudo cp kcli-profiles.yml ~/.kcli/profiles.yml
     sudo cp kcli-profiles.yml /root/.kcli/profiles.yml
-    cp $(pwd)/device-edge-workshops/local-inventory.yml $(pwd)/device-edge-workshops/local-inventory.yml.bak
-    sed -i "s/your-password/${PASSWORD}/g" $(pwd)/device-edge-workshops/local-inventory.yml
+    sudo cp $(pwd)/device-edge-workshops/local-inventory.yml $(pwd)/device-edge-workshops/local-inventory.yml.bak
+    sudo sed -i "s/your-password/${PASSWORD}/g" $(pwd)/device-edge-workshops/local-inventory.yml
     sudo cp $(pwd)/device-edge-workshops/local-inventory.yml  ~/.generated/vmfiles
     sudo cp $(pwd)/device-edge-workshops/local-inventory.yml /root/.generated/vmfiles
     rm -rf $(pwd)/device-edge-workshops/local-inventory.yml
-    cp $(pwd)/device-edge-workshops/local-inventory.yml.bak $(pwd)/device-edge-workshops/local-inventory.yml
+    sudo cp $(pwd)/device-edge-workshops/local-inventory.yml.bak $(pwd)/device-edge-workshops/local-inventory.yml
     cp $(pwd)/device-edge-workshops/extra_vars.yml $(pwd)/device-edge-workshops/extra_vars.yml.bak
-    sed -i "s/your-password/${RHSM_PASSWORD}/g" $(pwd)/device-edge-workshops/extra_vars.yml
-    sed -i "s/your-username/${RHSM_USERNAME}/g" $(pwd)/device-edge-workshops/extra_vars.yml
-    sed -i "s/your-token-here/${OFFLINE_TOKEN}/g" $(pwd)/device-edge-workshops/extra_vars.yml
-    sed -i "s/internallab.io/${DOMAIN_NAME}/g" $(pwd)/device-edge-workshops/extra_vars.yml
-    $(pwd)/device-edge-workshops//manifest-generator.sh /tmp/manifest.zip
+    sudo sed -i "s/your-password/${RHSM_PASSWORD}/g" $(pwd)/device-edge-workshops/extra_vars.yml
+    sudo sed -i "s/your-username/${RHSM_USERNAME}/g" $(pwd)/device-edge-workshops/extra_vars.yml
+    sudo sed -i "s/your-token-here/${OFFLINE_TOKEN}/g" $(pwd)/device-edge-workshops/extra_vars.yml
+    sudo sed -i "s/internallab.io/${DOMAIN_NAME}/g" $(pwd)/device-edge-workshops/extra_vars.yml
+    $(pwd)/device-edge-workshops/manifest-generator.sh /tmp/manifest.zip
     sudo cp $(pwd)/device-edge-workshops/extra_vars.yml  ~/.generated/vmfiles
     sudo cp $(pwd)/device-edge-workshops/extra_vars.yml /root/.generated/vmfiles
     cat  $(pwd)/device-edge-workshops/extra_vars.yml | less
