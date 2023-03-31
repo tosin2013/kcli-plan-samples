@@ -61,3 +61,5 @@ pre_build: false
 automation_hub: false
 
 builder_pub_key: 'your-key-here'
+
+base64_manifest: your-manifest-here
