@@ -30,7 +30,7 @@ cmds:
   - systemctl enable --now cockpit.socket && firewall-cmd --permanent --add-service=cockpit && firewall-cmd --reload
   - cd /tmp/ && curl -OL https://raw.githubusercontent.com/tosin2013/openshift-4-deployment-notes/master/pre-steps/configure-openshift-packages.sh
   - chmod +x /tmp/configure-openshift-packages.sh && /tmp/configure-openshift-packages.sh -i
-  - cd /root && git clone https://github.com/redhat-et/microshift-demos.git
+  - cd /root && git clone https://github.com/tosin2013/microshift-demos.git
 {% if offline_token %}
   - export OFFLINE_TOKEN={{ offline_token }}
   - echo $OFFLINE_TOKEN > /root/offline_token

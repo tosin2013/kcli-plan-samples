@@ -18,8 +18,6 @@ fi
 cd $KCLI_SAMPLES_DIR
 
 function deploy_via_kcli(){
-    export ANSIBLE_VAULT_FILE="$HOME/quibinode_navigator/inventories/localhost/group_vars/control/vault.yml"
-    export ANSIBLE_ALL_VARIABLES="$HOME/quibinode_navigator/inventories/localhost/group_vars/all.yml"
     ansiblesafe -f "${ANSIBLE_VAULT_FILE}" -o 2
     PASSWORD=$(yq eval '.admin_user_password' "${ANSIBLE_VAULT_FILE}")
     RHSM_PASSWORD=$(yq eval '.rhsm_password' "${ANSIBLE_VAULT_FILE}")
